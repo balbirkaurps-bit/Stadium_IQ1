@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusIQ — Emergency Command Center</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚨</text></svg>">
+</head>
+<body>
+
+  <!-- ==========================================
+       NAVBAR
+       ========================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-symbol"></div>
+          Nexus<span>IQ</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="ai-assistant.html" class="nav-link">AI Assistant</a>
+          <a href="crowd-intelligence.html" class="nav-link">Crowd AI</a>
+          <a href="navigation.html" class="nav-link">Smart Map</a>
+          <a href="emergency.html" class="nav-link active">Emergency</a>
+        </div>
+        <div class="nav-actions">
+          <span style="font-family: var(--font-ui); font-size: 0.8rem; background: rgba(255, 61, 113, 0.15); color: var(--coral-red); padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid rgba(255, 61, 113, 0.25);">CRITICAL ACCESS</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       MAIN CONTAINER
+       ========================================== -->
+  <main class="container" style="margin-top: 100px; padding-bottom: 50px;">
+    
+    <header class="reveal" style="margin-bottom: var(--space-xl);">
+      <span class="section-label">🚨 COMMAND CENTER</span>
+      <h1 class="hero-title" style="font-size: 2.5rem;">AI Emergency Operations</h1>
+      <p class="hero-subtitle">Real-time incident classification, resource routing, medical dispatch coordination, and evacuation overrides.</p>
+    </header>
+
+    <div class="grid-2 reveal">
+      
+      <!-- Incident reporting panel -->
+      <div class="glass-panel" style="padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);">
+        <h3 style="font-family: var(--font-heading); font-size: 1.25rem;">Report Active Hazard / Incident</h3>
+        
+        <div class="form-group">
+          <label class="form-label" for="incidentType">Incident Type</label>
+          <select id="incidentType" class="form-select">
+            <option value="medical">Medical Assistance Required</option>
+            <option value="hazard">Hazard / Blocked Passage</option>
+            <option value="fire">Fire / Electrical Smoke</option>
+            <option value="security">Security Threat / Crowd Surge</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="incidentLoc">Location / Section</label>
+          <select id="incidentLoc" class="form-select">
+            <option value="sec_102">Section 102 Concourse Corridor</option>
+            <option value="gate_b">Gate B Entrance Area</option>
+            <option value="east_lobby">East Lobby Elevator Hall</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="incidentNotes">Description / Details</label>
+          <textarea id="incidentNotes" class="form-input" style="min-height: 80px; resize: vertical;" placeholder="Provide active details..."></textarea>
+        </div>
+
+        <button class="btn btn-primary" id="btnReportIncident" style="background: var(--fire-gradient); box-shadow: 0 4px 20px rgba(255, 61, 113, 0.4);">Dispatch Emergency Teams</button>
+      </div>
+
+      <!-- Live Resource Tracker / AI Dispatch recommendations -->
+      <div class="glass-panel" style="padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);">
+        <div class="flex justify-between items-center">
+          <h3 style="font-family: var(--font-heading); font-size: 1.25rem;">AI Resource Deployment Feed</h3>
+          <span style="background: rgba(0, 232, 122, 0.1); color: var(--emerald); padding: 4px 10px; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 700;">STANDBY</span>
+        </div>
+
+        <div class="alert-feed" id="dispatchFeed">
+          <div class="alert-item severity-high">
+            <div>
+              <span style="font-weight: 800; text-transform: uppercase;">DISPATCH UNIT 4</span> · Medical response unit redirected to Section 102 concourse lobby.
+              <div style="margin-top: 5px; font-size: 0.75rem; color: rgba(255,255,255,0.4);">AI pathfinding routed past Gate B congestion. Est transit: 1.5 mins.</div>
+            </div>
+          </div>
+          <div class="alert-item severity-low">
+            <div>
+              <span style="font-weight: 800; text-transform: uppercase;">MONITOR ZONE E</span> · Security dispatch team 12 on standby at East Gate concourse bypass path.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    const btnReport = document.getElementById('btnReportIncident');
+    const dispatchFeed = document.getElementById('dispatchFeed');
+
+    if (btnReport) {
+      btnReport.addEventListener('click', () => {
+        const type = document.getElementById('incidentType').value;
+        const loc = document.getElementById('incidentLoc').value;
+        const notes = document.getElementById('incidentNotes').value.trim() || 'No active details provided';
+
+        const newAlert = document.createElement('div');
+        newAlert.className = 'alert-item severity-high';
+        newAlert.innerHTML = `
+          <div>
+            <span style="font-weight: 800; text-transform: uppercase;">ACTIVE INCIDENT DISPATCH</span> · ${type.toUpperCase()} reported at ${loc.toUpperCase()}.
+            <div style="margin-top: 5px; font-size: 0.75rem; color: rgba(255,255,255,0.4);">Details: ${notes}. Dispatching response unit. Rerouting local signage.</div>
+          </div>
+        `;
+        dispatchFeed.prepend(newAlert);
+        document.getElementById('incidentNotes').value = '';
+        alert('Emergency incident reported. Local field responders have been dispatched.');
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusIQ — Multi-lingual Stadium Assistant</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+</head>
+<body style="overflow-y: hidden;">
+
+  <!-- ==========================================
+       NAVBAR
+       ========================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-symbol"></div>
+          Nexus<span>IQ</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="ai-assistant.html" class="nav-link active">AI Assistant</a>
+          <a href="crowd-intelligence.html" class="nav-link">Crowd AI</a>
+          <a href="navigation.html" class="nav-link">Smart Map</a>
+          <a href="emergency.html" class="nav-link">Emergency</a>
+        </div>
+        <div class="nav-actions">
+          <span style="font-family: var(--font-ui); font-size: 0.8rem; background: rgba(0, 212, 255, 0.1); color: var(--fifa-cyan); padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid rgba(0, 212, 255, 0.2);">VOICE CONNECTED</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       CHAT WINDOW WRAPPER
+       ========================================== -->
+  <div class="container">
+    <div class="assistant-container">
+      
+      <!-- Side config bar -->
+      <aside class="glass-panel assistant-sidebar">
+        <h3 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: var(--space-xs);">AI Config</h3>
+        <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: var(--space-md);">Customize your voice and translation engine.</p>
+        
+        <div class="form-group">
+          <label class="form-label" for="assistantLangSelect">Select Language</label>
+          <select id="assistantLangSelect" class="form-select">
+            <option value="en">🇺🇸 English</option>
+            <option value="ar">🇸🇦 العربية (Arabic)</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="pt">🇵🇹 Português</option>
+            <option value="hi">🇮🇳 हिन्दी</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="assistantKey">Gemini API Key</label>
+          <input type="password" id="assistantKey" class="form-input" placeholder="Enter API key...">
+        </div>
+        
+        <div class="glass-card" style="margin-top: auto; padding: 12px; border-radius: var(--radius-md);">
+          <div style="font-weight: 700; font-size: 0.8rem; color: var(--fifa-cyan); margin-bottom: 5px;">🤖 Voice Guide Active</div>
+          <p style="font-size: 0.72rem; color: rgba(255,255,255,0.6); line-height: 1.4;">
+            Check the voice output toggle to speak responses in your selected language automatically.
+          </p>
+          <label style="display: flex; align-items: center; gap: 8px; margin-top: 10px; cursor: pointer; font-size: 0.75rem;">
+            <input type="checkbox" id="voiceToggle" checked> Enable Voice Output
+          </label>
+        </div>
+      </aside>
+      
+      <!-- Main Chat Panels -->
+      <main class="glass-panel assistant-main">
+        <div class="assistant-messages" id="chatArea">
+          <!-- Bot Msg -->
+          <div class="chat-bubble bot">
+            Welcome to the NexusIQ Smart Assistant for FIFA World Cup 2026. How can I guide you today?
+          </div>
+        </div>
+        
+        <div class="assistant-input-panel">
+          <!-- Shortcuts chips -->
+          <div class="chips-container" id="assistantChips">
+            <button class="chip-btn" data-prompt="Guide me to Gate B.">Gate B Navigation</button>
+            <button class="chip-btn" data-prompt="Find wheelchair accessible route to restrooms.">Wheelchair Access</button>
+            <button class="chip-btn" data-prompt="Show nearest vegan food stalls.">Vegan Stalls</button>
+            <button class="chip-btn" data-prompt="What is the match schedule?">Match Schedule</button>
+          </div>
+          
+          <div class="assistant-input-row">
+            <input type="text" id="chatInput" class="form-input" style="flex: 1; border-radius: var(--radius-full);" placeholder="Ask about gates, accessibility, restrooms...">
+            <button class="btn btn-secondary" id="voiceBtn" title="Speak to assistant" style="border-radius: var(--radius-full); padding: 12px;">🎙️</button>
+            <button class="btn btn-primary" id="sendBtn" style="border-radius: var(--radius-full); padding: 12px 24px;">Send</button>
+          </div>
+        </div>
+      </main>
+      
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    const chatArea = document.getElementById('chatArea');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const voiceBtn = document.getElementById('voiceBtn');
+    const voiceToggle = document.getElementById('voiceToggle');
+    const assistantChips = document.getElementById('assistantChips');
+    const assistantKey = document.getElementById('assistantKey');
+    const assistantLangSelect = document.getElementById('assistantLangSelect');
+
+    // Populate key & lang
+    if (assistantKey) {
+      assistantKey.value = AppState.geminiApiKey;
+      assistantKey.addEventListener('input', (e) => {
+        updateApiKey(e.target.value.trim());
+      });
+    }
+
+    if (assistantLangSelect) {
+      assistantLangSelect.value = AppState.selectedLanguage;
+      assistantLangSelect.addEventListener('change', (e) => {
+        AppState.selectedLanguage = e.target.value;
+      });
+    }
+
+    async function handleSend(text) {
+      const msg = text || chatInput.value.trim();
+      if (!msg) return;
+
+      appendBubble(msg, 'user');
+      chatInput.value = '';
+
+      const thinking = appendBubble('Generating smart route details...', 'bot');
+      const response = await queryStadiumAI(msg);
+      thinking.remove();
+
+      appendBubble(response, 'bot');
+
+      // Voice output
+      if (voiceToggle && voiceToggle.checked) {
+        speakText(response);
+      }
+    }
+
+    function appendBubble(text, sender) {
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${sender}`;
+      bubble.innerHTML = text.replace(/\n/g, '<br>');
+      chatArea.appendChild(bubble);
+      chatArea.scrollTop = chatArea.scrollHeight;
+      return bubble;
+    }
+
+    // Input listeners
+    if (sendBtn) sendBtn.addEventListener('click', () => handleSend());
+    if (chatInput) {
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSend();
+      });
+    }
+
+    if (assistantChips) {
+      assistantChips.addEventListener('click', (e) => {
+        const btn = e.target.closest('.chip-btn');
+        if (btn) {
+          handleSend(btn.getAttribute('data-prompt'));
+        }
+      });
+    }
+
+    // Voice Input Recognition
+    let recognitionInstance = null;
+    if (voiceBtn) {
+      voiceBtn.addEventListener('click', () => {
+        if (AppState.isRecording) {
+          if (recognitionInstance) {
+            recognitionInstance.stop();
+          }
+          voiceBtn.innerText = '🎙️';
+          AppState.isRecording = false;
+        } else {
+          voiceBtn.innerText = '🛑 Recording...';
+          AppState.isRecording = true;
+          
+          recognitionInstance = startVoiceRecognition(
+            (text) => {
+              chatInput.value = text;
+              voiceBtn.innerText = '🎙️';
+              AppState.isRecording = false;
+              handleSend(text);
+            },
+            (err) => {
+              console.error(err);
+              voiceBtn.innerText = '🎙️';
+              AppState.isRecording = false;
+              alert(`Voice input failed: ${err}`);
+            }
+          );
+        }
+      });
+    }
+  </script>
+</body>
+</html>

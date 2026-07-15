@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusIQ — Live Crowd Intelligence & Heatmaps</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👥</text></svg>">
+</head>
+<body>
+
+  <!-- ==========================================
+       NAVBAR
+       ========================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-symbol"></div>
+          Nexus<span>IQ</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="ai-assistant.html" class="nav-link">AI Assistant</a>
+          <a href="crowd-intelligence.html" class="nav-link active">Crowd AI</a>
+          <a href="navigation.html" class="nav-link">Smart Map</a>
+          <a href="emergency.html" class="nav-link">Emergency</a>
+        </div>
+        <div class="nav-actions">
+          <span style="font-family: var(--font-ui); font-size: 0.8rem; background: rgba(255, 61, 113, 0.1); color: var(--coral-red); padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid rgba(255, 61, 113, 0.2);">LIVE OVERWATCH</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       MAIN CONTAINER
+       ========================================== -->
+  <main class="container" style="margin-top: 100px; padding-bottom: 50px;">
+    
+    <header class="reveal" style="margin-bottom: var(--space-xl);">
+      <span class="section-label">📊 CROWD METRICS</span>
+      <h1 class="hero-title" style="font-size: 2.5rem;">AI Crowd Overwatch & Heatmaps</h1>
+      <p class="hero-subtitle">Proactively monitoring zone densities and queue metrics across gates to coordinate crowd management teams.</p>
+    </header>
+
+    <!-- Top Alert Grid -->
+    <section class="grid-3 reveal">
+      <div class="glass-card" style="border-left: 4px solid var(--coral-red);">
+        <div style="font-weight: 700; color: var(--coral-red); margin-bottom: 5px;">🔥 Gate B Queue Congestion</div>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">
+          Current intake is 2.4x standard rates. Average queue wait is <strong>18 minutes</strong>. Rerouting incoming traffic to Gate C.
+        </p>
+      </div>
+      <div class="glass-card" style="border-left: 4px solid var(--gold);">
+        <div style="font-weight: 700; color: var(--gold); margin-bottom: 5px;">⚠️ North Concourse Crowd Density</div>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">
+          Flow velocity has slowed by 15%. Predicted congestion bottleneck in Section 102 corridor in approximately 10 minutes.
+        </p>
+      </div>
+      <div class="glass-card" style="border-left: 4px solid var(--emerald);">
+        <div style="font-weight: 700; color: var(--emerald); margin-bottom: 5px;">✅ West gate flow optimal</div>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">
+          Capacity utilization at 44%. Flow rates stable. No active action or volunteer dispatch required.
+        </p>
+      </div>
+    </section>
+
+    <!-- Heatmap & Route Suggestions -->
+    <section class="grid-2 reveal" style="margin-top: 30px;">
+      
+      <!-- Interactive Map Panel -->
+      <div class="glass-panel" style="padding: var(--space-lg);">
+        <h3 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: var(--space-md);">Interactive Crowd Heatmap</h3>
+        
+        <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-md); padding: var(--space-md); text-align: center;">
+          <!-- Custom Map Display -->
+          <svg viewBox="0 0 400 300" style="width: 100%; height: auto; max-height: 320px;">
+            <!-- Outer Concourse Ring -->
+            <rect x="10" y="10" width="380" height="280" rx="90" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+            <!-- Inner Arena Ring -->
+            <rect x="90" y="70" width="220" height="160" rx="40" fill="none" stroke="rgba(0, 212, 255, 0.2)" stroke-width="2"/>
+            
+            <defs>
+              <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+                <path d="M 0 0 L 10 5 L 0 10 Z" fill="#FFF" />
+              </marker>
+            </defs>
+            <!-- Heatmap Overlays (Vibrant semi-transparent gradients) -->
+            <!-- North (Optimal Green) -->
+            <circle cx="200" cy="40" r="30" fill="var(--emerald)" opacity="0.3"/>
+            <!-- East (Heavy Red) -->
+            <circle cx="340" cy="150" r="40" fill="var(--coral-red)" opacity="0.5"/>
+            <!-- South (Optimal Green) -->
+            <circle cx="200" cy="260" r="30" fill="var(--emerald)" opacity="0.3"/>
+            <!-- West (Moderate Gold) -->
+            <circle cx="60" cy="150" r="35" fill="var(--gold)" opacity="0.4"/>
+            
+            <!-- Evacuation Arrows -->
+            <path d="M 280 150 L 250 150" stroke="#FFF" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="5, 5" style="animation: strokeFlow 4s linear infinite;"/>
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Prediction & Routing Controller -->
+      <div class="glass-panel" style="padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);">
+        <h3 style="font-family: var(--font-heading); font-size: 1.25rem;">AI Rerouting & Simulation Controls</h3>
+        
+        <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+          <div class="glass-card" style="padding: 12px 16px;">
+            <div style="font-weight: 700; color: var(--fifa-cyan); font-size: 0.9rem; margin-bottom: 8px;">Divert Route Plan [Gate B -> Gate C]</div>
+            <p style="font-size: 0.8rem; color: rgba(255,255,255,0.7); line-height: 1.5; margin-bottom: 12px;">
+              Broadcast coordinates change to navigation systems. Reroutes 3,500 incoming fans to East gate bypass path.
+            </p>
+            <button class="btn btn-primary btn-sm" id="btnBroadcast">Deploy Reroute Broadcast</button>
+          </div>
+          
+          <div class="glass-card" style="padding: 12px 16px;">
+            <div style="font-weight: 700; color: var(--gold); font-size: 0.9rem; margin-bottom: 8px;">Evacuation Route Simulator</div>
+            <p style="font-size: 0.8rem; color: rgba(255,255,255,0.7); line-height: 1.5; margin-bottom: 12px;">
+              Simulate full stadium evacuation in case of emergency. Predict bottleneck zones and volunteer dispatch spots.
+            </p>
+            <button class="btn btn-glow btn-sm" id="btnSimulateEvac" style="border-color: var(--gold); color: var(--gold);">Simulate Evacuation</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    const btnBroadcast = document.getElementById('btnBroadcast');
+    const btnSimulateEvac = document.getElementById('btnSimulateEvac');
+
+    if (btnBroadcast) {
+      btnBroadcast.addEventListener('click', () => {
+        alert('Dynamic reroute route broadcast has been deployed to all fan mobile navigation maps and signage boards.');
+      });
+    }
+
+    if (btnSimulateEvac) {
+      btnSimulateEvac.addEventListener('click', () => {
+        alert('Simulation running: Evacuation paths calculated. Core bottleneck predicted at Section 102. AI recommends dispatching 6 accessibility volunteers to Section 102 elevator lobby.');
+      });
+    }
+  </script>
+</body>
+</html>

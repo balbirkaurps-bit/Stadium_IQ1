@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusIQ Command — AI Operations Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- ==========================================
+       NAVBAR
+       ========================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-symbol"></div>
+          Nexus<span>IQ</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="dashboard.html" class="nav-link active">Dashboard</a>
+          <a href="ai-assistant.html" class="nav-link">AI Assistant</a>
+          <a href="crowd-intelligence.html" class="nav-link">Crowd AI</a>
+          <a href="navigation.html" class="nav-link">Smart Map</a>
+          <a href="emergency.html" class="nav-link">Emergency</a>
+        </div>
+        <div class="nav-actions">
+          <span style="font-family: var(--font-ui); font-size: 0.8rem; background: rgba(0, 232, 122, 0.1); color: var(--emerald); padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid rgba(0, 232, 122, 0.2);">SECURE SYSTEM</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       MAIN DASHBOARD CONTAINER
+       ========================================== -->
+  <main class="container" style="margin-top: 100px; padding-bottom: 50px;">
+    
+    <!-- Top Stats Row -->
+    <section class="metrics-grid reveal">
+      <!-- Stat 1 -->
+      <div class="glass-card metric-card">
+        <div class="metric-title">Stadium Capacity</div>
+        <div class="metric-value">67,543</div>
+        <div class="metric-trend trend-up">
+          <span>● Live Attendance</span> · 84.4% full
+        </div>
+      </div>
+      <!-- Stat 2 -->
+      <div class="glass-card metric-card">
+        <div class="metric-title">Active AI Guard Alerts</div>
+        <div class="metric-value" style="color: var(--fifa-cyan);" id="activeAlertCount">2</div>
+        <div class="metric-trend trend-down">
+          <span>↓ 3 resolved</span> · Last 10 mins
+        </div>
+      </div>
+      <!-- Stat 3 -->
+      <div class="glass-card metric-card">
+        <div class="metric-title">Energy Optimization</div>
+        <div class="metric-value" style="color: var(--emerald);">92%</div>
+        <div class="metric-trend trend-up">
+          <span>↑ 12% saving</span> · Smart Grid
+        </div>
+      </div>
+      <!-- Stat 4 -->
+      <div class="glass-card metric-card">
+        <div class="metric-title">Sustainability Tracking</div>
+        <div class="metric-value">1.24 <span style="font-size: 1rem; color: rgba(255,255,255,0.6)">kg CO2e</span></div>
+        <div class="metric-trend">
+          <span>Per Capita Fan Footprint</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Grid: Maps & Charts -->
+    <section class="grid-2 reveal" style="margin-top: 30px;">
+      
+      <!-- Interactive Heatmap / Stadium Digital Twin -->
+      <div class="glass-panel" style="padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.25rem;">Stadium Digital Twin Heatmap</h3>
+            <p style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">Click zones to check live telemetry status & recommendations.</p>
+          </div>
+          <span style="background: rgba(0, 212, 255, 0.1); color: var(--fifa-cyan); padding: 4px 10px; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 700;">LIVE UPDATING</span>
+        </div>
+        
+        <!-- Beautiful SVG Heatmap representation -->
+        <div class="flex justify-between items-center" style="position: relative; background: rgba(0,0,0,0.3); border-radius: var(--radius-md); padding: var(--space-md); min-height: 280px; justify-content: center;">
+          <svg viewBox="0 0 400 300" class="stadium-svg">
+            <!-- Exterior Boundary -->
+            <rect x="20" y="20" width="360" height="260" rx="100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="3"/>
+            <!-- Interior Field -->
+            <rect x="110" y="80" width="180" height="140" rx="10" fill="none" stroke="rgba(0, 232, 122, 0.3)" stroke-width="2"/>
+            <rect x="120" y="90" width="160" height="120" rx="5" fill="rgba(0, 232, 122, 0.05)" />
+            
+            <!-- Stadium Zones (Interactive Color-Coded Heatmap blocks) -->
+            <!-- Zone A (North) -->
+            <path d="M 60 40 L 340 40 A 10 10 0 0 1 340 70 L 60 70 A 10 10 0 0 1 60 40" fill="rgba(0, 232, 122, 0.4)" class="stadium-zone" id="zone-north" data-density="Low" data-occupancy="35%" data-volunteers="12" data-gate="Gate A"/>
+            <!-- Zone B (East) -->
+            <path d="M 345 80 L 375 80 A 10 10 0 0 1 375 220 L 345 220 A 10 10 0 0 1 345 80" fill="rgba(255, 61, 113, 0.6)" class="stadium-zone" id="zone-east" data-density="Critical" data-occupancy="92%" data-volunteers="45" data-gate="Gate B"/>
+            <!-- Zone C (South) -->
+            <path d="M 60 230 L 340 230 A 10 10 0 0 1 340 260 L 60 260 A 10 10 0 0 1 60 230" fill="rgba(0, 232, 122, 0.4)" class="stadium-zone" id="zone-south" data-density="Low" data-occupancy="28%" data-volunteers="8" data-gate="Gate C"/>
+            <!-- Zone D (West) -->
+            <path d="M 25 80 L 55 80 A 10 10 0 0 1 55 220 L 25 220 A 10 10 0 0 1 25 80" fill="rgba(255, 193, 7, 0.5)" class="stadium-zone" id="zone-west" data-density="Moderate" data-occupancy="68%" data-volunteers="20" data-gate="Gate D"/>
+          </svg>
+          
+          <!-- Heatmap Dynamic Detail Tooltip overlay -->
+          <div id="heatmapTooltip" style="position: absolute; bottom: 15px; left: 15px; background: rgba(7, 26, 47, 0.95); border: 1px solid var(--border-glass-active); padding: 10px 14px; border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.78rem; display: none; pointer-events: none; min-width: 180px;">
+            <div style="font-weight: 700; color: var(--fifa-cyan);" id="tooltipTitle">EAST ZONE</div>
+            <div style="margin-top: 5px;">Density: <span id="tooltipDensity" style="font-weight:700;">Critical (92%)</span></div>
+            <div>Gate: <span id="tooltipGate">Gate B</span></div>
+            <div>Active Volunteers: <span id="tooltipVolunteers">45</span></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Chart.js Density Prediction -->
+      <div class="glass-panel" style="padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);">
+        <h3 style="font-family: var(--font-heading); font-size: 1.25rem;">Live Crowd Density Prediction</h3>
+        <div style="flex: 1; min-height: 250px;">
+          <canvas id="densityChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Operational Alerts & AI Recommendations -->
+    <section class="grid-2 reveal" style="margin-top: 30px;">
+      
+      <!-- Security Alerts Hub -->
+      <div class="glass-panel" style="padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);">
+        <div class="flex justify-between items-center">
+          <h3 style="font-family: var(--font-heading); font-size: 1.25rem;">Active Security Alerts</h3>
+          <button class="btn btn-secondary btn-sm" id="btnSimulateAlert">Simulate Alert</button>
+        </div>
+        
+        <div class="alert-feed" id="alertFeedContainer">
+          <!-- Alert 1 -->
+          <div class="alert-item severity-high">
+            <div>
+              <span style="font-weight: 800; text-transform: uppercase;">EAST CONGESTION</span> · Section 112 Gate B entrance queue exceeded capacity.
+              <div style="margin-top: 5px; font-size: 0.75rem; color: rgba(255,255,255,0.4);">Estimated wait time: 14 mins. Recalculating access routes...</div>
+            </div>
+          </div>
+          <!-- Alert 2 -->
+          <div class="alert-item severity-medium">
+            <div>
+              <span style="font-weight: 800; text-transform: uppercase;">PARKING OVERFLOW</span> · Lot C entrance experiencing slow intake due to scan issue.
+              <div style="margin-top: 5px; font-size: 0.75rem; color: rgba(255,255,255,0.4);">Suggest diverting incoming drivers to West Parking Lot F.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- AI Recommendations Generator -->
+      <div class="glass-panel" style="padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);">
+        <h3 style="font-family: var(--font-heading); font-size: 1.25rem;">AI Recommendation Engine</h3>
+        
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+          <div class="glass-card" style="border-left: 4px solid var(--emerald); padding: 12px 16px;">
+            <div style="font-weight: 700; color: var(--emerald); font-size: 0.9rem; margin-bottom: 4px;">🎯 Waste & Sustainability Action</div>
+            <p style="font-size: 0.825rem; color: rgba(255,255,255,0.7); line-height: 1.5;">
+              Waste receptacle 42 behind Section 108 is at 88% capacity. Dispatching sustainability volunteer drone team 3 to clear zone.
+            </p>
+          </div>
+          
+          <div class="glass-card" style="border-left: 4px solid var(--fifa-cyan); padding: 12px 16px;">
+            <div style="font-weight: 700; color: var(--fifa-cyan); font-size: 0.9rem; margin-bottom: 4px;">🚀 Multilingual Announcement</div>
+            <p style="font-size: 0.825rem; color: rgba(255,255,255,0.7); line-height: 1.5;">
+              Match concluding in 15 minutes. Instantly broadcasting exit guidance in English, Spanish and Arabic to Gates A, C and D.
+            </p>
+          </div>
+          
+          <div class="glass-card" style="border-left: 4px solid var(--primary); padding: 12px 16px;">
+            <div style="font-weight: 700; color: var(--primary); font-size: 0.9rem; margin-bottom: 4px;">🧠 Dynamic Transit Allocation</div>
+            <p style="font-size: 0.825rem; color: rgba(255,255,255,0.7); line-height: 1.5;">
+              Post-match transport demand is predicted to peak at Gate B. Coordinating local transit to add 12 shuttles on Route 4.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    // ==========================================
+    // INTERACTIVE HEATMAP INTERACTION
+    // ==========================================
+    const tooltip = document.getElementById('heatmapTooltip');
+    const tooltipTitle = document.getElementById('tooltipTitle');
+    const tooltipDensity = document.getElementById('tooltipDensity');
+    const tooltipGate = document.getElementById('tooltipGate');
+    const tooltipVolunteers = document.getElementById('tooltipVolunteers');
+    
+    document.querySelectorAll('.stadium-zone').forEach(zone => {
+      zone.addEventListener('mouseenter', (e) => {
+        const id = zone.getAttribute('id');
+        const density = zone.getAttribute('data-density');
+        const occupancy = zone.getAttribute('data-occupancy');
+        const volunteers = zone.getAttribute('data-volunteers');
+        const gate = zone.getAttribute('data-gate');
+        
+        tooltipTitle.innerText = id.replace('zone-', '').toUpperCase() + ' AREA';
+        tooltipDensity.innerText = `${density} (${occupancy})`;
+        tooltipGate.innerText = gate;
+        tooltipVolunteers.innerText = volunteers;
+        
+        tooltip.style.display = 'block';
+      });
+      
+      zone.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+      });
+      
+      zone.addEventListener('mousemove', (e) => {
+        // Simple position offsets relative to SVG container
+        const bounding = e.currentTarget.getBoundingClientRect();
+        tooltip.style.left = (e.clientX - bounding.left + 20) + 'px';
+        tooltip.style.top = (e.clientY - bounding.top - 80) + 'px';
+      });
+    });
+
+    // ==========================================
+    // CHART.JS INITIALIZATION
+    // ==========================================
+    const ctx = document.getElementById('densityChart').getContext('2d');
+    const densityChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['13:00', '14:00', '15:00', '16:00', '17:00', '18:00 (Match End)'],
+        datasets: [
+          {
+            label: 'Predicted Gate B Intake (k)',
+            data: [12, 18, 42, 5, 8, 55],
+            borderColor: '#ff3d71',
+            backgroundColor: 'rgba(255, 61, 113, 0.1)',
+            fill: true,
+            tension: 0.4
+          },
+          {
+            label: 'Optimal Gate Intake Capacity (k)',
+            data: [25, 25, 25, 25, 25, 25],
+            borderColor: '#00E87A',
+            borderDash: [5, 5],
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: { color: '#fff', font: { family: 'Manrope' } }
+          }
+        },
+        scales: {
+          y: {
+            grid: { color: 'rgba(255,255,255,0.05)' },
+            ticks: { color: 'rgba(255,255,255,0.6)' }
+          },
+          x: {
+            grid: { color: 'rgba(255,255,255,0.05)' },
+            ticks: { color: 'rgba(255,255,255,0.6)' }
+          }
+        }
+      }
+    });
+
+    // ==========================================
+    // ALERT SIMULATOR
+    // ==========================================
+    const btnSimulate = document.getElementById('btnSimulateAlert');
+    const alertFeed = document.getElementById('alertFeedContainer');
+    const alertCounter = document.getElementById('activeAlertCount');
+    let simulatedCount = 2;
+
+    if (btnSimulate) {
+      btnSimulate.addEventListener('click', () => {
+        simulatedCount++;
+        alertCounter.innerText = simulatedCount;
+        
+        const newAlert = document.createElement('div');
+        newAlert.className = 'alert-item severity-medium';
+        newAlert.innerHTML = `
+          <div>
+            <span style="font-weight: 800; text-transform: uppercase;">ACCESSIBILITY ALERT</span> · Elevator 2 (South Gate) reported high queue delay.
+            <div style="margin-top: 5px; font-size: 0.75rem; color: rgba(255,255,255,0.4);">Rerouting disabled fans to Elevator 4.</div>
+          </div>
+        `;
+        alertFeed.prepend(newAlert);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "NexusIQ Stadium AI - FIFA World Cup 2026",
+  "short_name": "NexusIQ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030a16",
+  "theme_color": "#071A2F",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23071A2F'/><text y='.75em' x='10' font-size='60' fill='%2300D4FF'>⚡</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23071A2F'/><text y='.75em' x='10' font-size='60' fill='%2300D4FF'>⚡</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

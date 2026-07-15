@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusIQ — Smart Indoor Navigation & AR Map</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+</head>
+<body>
+
+  <!-- ==========================================
+       NAVBAR
+       ========================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-symbol"></div>
+          Nexus<span>IQ</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="ai-assistant.html" class="nav-link">AI Assistant</a>
+          <a href="crowd-intelligence.html" class="nav-link">Crowd AI</a>
+          <a href="navigation.html" class="nav-link active">Smart Map</a>
+          <a href="emergency.html" class="nav-link">Emergency</a>
+        </div>
+        <div class="nav-actions">
+          <span style="font-family: var(--font-ui); font-size: 0.8rem; background: rgba(0, 212, 255, 0.1); color: var(--fifa-cyan); padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid rgba(0, 212, 255, 0.2);">AR ACCELERATED</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       MAIN CONTAINER
+       ========================================== -->
+  <main class="container" style="margin-top: 100px; padding-bottom: 50px;">
+    
+    <header class="reveal" style="margin-bottom: var(--space-xl);">
+      <span class="section-label">🗺️ WAYFINDING</span>
+      <h1 class="hero-title" style="font-size: 2.5rem;">Smart Indoor Navigation</h1>
+      <p class="hero-subtitle">Interactive 3D concourse maps, shortest path route recommendations and accessibility routes mapping.</p>
+    </header>
+
+    <div class="grid-2 reveal">
+      
+      <!-- Interactive Navigation Input Map -->
+      <div class="glass-panel" style="padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);">
+        <h3 style="font-family: var(--font-heading); font-size: 1.25rem;">Route Coordinates</h3>
+        
+        <div class="form-group">
+          <label class="form-label" for="fromLoc">Starting Point</label>
+          <select id="fromLoc" class="form-select">
+            <option value="parking">North Parking Lot A</option>
+            <option value="gate_b">Gate B Entrance Lobby</option>
+            <option value="section_108">Section 108 Concourse Corridor</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="toLoc">Destination</label>
+          <select id="toLoc" class="form-select">
+            <option value="section_112">Section 112 Seat Row 14</option>
+            <option value="food_1">Burger Arena (Food Stall)</option>
+            <option value="toilet_north">Restroom (North Concourse)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Accessibility Settings</label>
+          <label style="display: flex; align-items: center; gap: 8px; margin-top: 5px; font-family: var(--font-ui); font-size: 0.85rem; color: rgba(255,255,255,0.7); cursor: pointer;">
+            <input type="checkbox" id="chkWheelchair" checked> Prioritize Wheelchair & Elevator Paths
+          </label>
+        </div>
+
+        <button class="btn btn-primary" id="btnCalculateRoute" style="margin-top: 10px;">Calculate Shortest Route</button>
+      </div>
+
+      <!-- Navigation Output Map representation -->
+      <div class="glass-panel" style="padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);">
+        <div class="flex justify-between items-center">
+          <h3 style="font-family: var(--font-heading); font-size: 1.25rem;">AI Navigation Route</h3>
+          <span id="routeTimeBadge" style="background: rgba(0, 232, 122, 0.1); color: var(--emerald); padding: 4px 10px; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 700;">EST: 4 MIN</span>
+        </div>
+
+        <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-md); padding: var(--space-md); min-height: 220px; display: flex; align-items: center; justify-content: center; position: relative;">
+          <!-- SVG layout mapping paths -->
+          <svg viewBox="0 0 300 200" style="width: 100%; height: auto; max-height: 200px;">
+            <!-- Background paths -->
+            <path d="M 30 170 Q 150 170 150 100 T 270 30" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="6"/>
+            <!-- Selected Route Highlight -->
+            <path id="routeLine" d="M 30 170 Q 150 170 150 100 T 270 30" fill="none" stroke="var(--fifa-cyan)" stroke-width="4" stroke-dasharray="10,5" style="animation: strokeFlow 4s linear infinite;"/>
+            
+            <!-- Nodes -->
+            <circle cx="30" cy="170" r="6" fill="var(--emerald)"/>
+            <circle cx="270" cy="30" r="6" fill="var(--coral-red)"/>
+            <text x="30" y="190" fill="#FFF" font-family="var(--font-ui)" font-size="10" text-anchor="middle">Start</text>
+            <text x="270" y="20" fill="#FFF" font-family="var(--font-ui)" font-size="10" text-anchor="middle">Dest</text>
+          </svg>
+        </div>
+
+        <!-- Directions List -->
+        <div style="font-family: var(--font-ui); font-size: 0.85rem; color: rgba(255,255,255,0.7); display: flex; flex-direction: column; gap: 8px;" id="directionsList">
+          <div>🚶 1. Exit North Parking Lot A and proceed past the Security Gate.</div>
+          <div>🛗 2. Use Elevator 2 to descend to Concourse Level 1.</div>
+          <div>🚪 3. Section 112 Row 14 entrance is on your immediate left.</div>
+        </div>
+      </div>
+      
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    const btnCalculateRoute = document.getElementById('btnCalculateRoute');
+    const directionsList = document.getElementById('directionsList');
+    const routeTimeBadge = document.getElementById('routeTimeBadge');
+    const routeLine = document.getElementById('routeLine');
+
+    if (btnCalculateRoute) {
+      btnCalculateRoute.addEventListener('click', () => {
+        const from = document.getElementById('fromLoc').value;
+        const to = document.getElementById('toLoc').value;
+        const isWheelchair = document.getElementById('chkWheelchair').checked;
+
+        // Custom route path simulation
+        if (isWheelchair) {
+          routeLine.setAttribute('stroke', '#00D4FF'); // cyan
+          routeTimeBadge.innerText = 'EST: 6 MIN (ACCESSIBLE)';
+          directionsList.innerHTML = `
+            <div>🚶 1. Head East from starting point.</div>
+            <div>🛗 2. Take Elevator 4 (East Wall) to Concourse Level 1.</div>
+            <div>♿ 3. Use the wheelchair ramp entrance at Section 112.</div>
+          `;
+        } else {
+          routeLine.setAttribute('stroke', '#00E87A'); // green
+          routeTimeBadge.innerText = 'EST: 3 MIN';
+          directionsList.innerHTML = `
+            <div>🚶 1. Exit start point towards Central Concourse.</div>
+            <div>🪜 2. Take escalator 2 to level 1.</div>
+            <div>🚪 3. Section 112 entrance is on your immediate left.</div>
+          `;
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusIQ Stadium AI — FIFA World Cup 2026 Smart Platform</title>
+  <meta name="description" content="NexusIQ Stadium AI leverages Generative AI and crowd prediction models to enhance FIFA World Cup 2026 stadium operations, accessibility, safety and fan experience.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+
+  <!-- ==========================================
+       NAVBAR
+       ========================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-symbol"></div>
+          Nexus<span>IQ</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="ai-assistant.html" class="nav-link">AI Assistant</a>
+          <a href="crowd-intelligence.html" class="nav-link">Crowd AI</a>
+          <a href="navigation.html" class="nav-link">Smart Map</a>
+          <a href="emergency.html" class="nav-link">Emergency</a>
+        </div>
+        <div class="nav-actions">
+          <a href="dashboard.html" class="btn btn-glow btn-sm">Command Center</a>
+          <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileClose">✕</button>
+    <a href="index.html" class="btn btn-secondary">Home</a>
+    <a href="dashboard.html" class="btn btn-secondary">Dashboard</a>
+    <a href="ai-assistant.html" class="btn btn-secondary">AI Assistant</a>
+    <a href="crowd-intelligence.html" class="btn btn-secondary">Crowd AI</a>
+    <a href="navigation.html" class="btn btn-secondary">Smart Map</a>
+    <a href="emergency.html" class="btn btn-secondary">Emergency</a>
+    <a href="dashboard.html" class="btn btn-primary">Command Center</a>
+  </div>
+
+  <!-- ==========================================
+       HERO SECTION
+       ========================================== -->
+  <section class="hero" id="hero">
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-grid-pattern"></div>
+    <canvas id="hero-canvas"></canvas>
+    
+    <div class="container">
+      <div class="hero-row">
+        <div class="hero-content reveal">
+          <div class="hero-badge">
+            <div class="pulse-dot"></div>
+            GenAI Platform · FIFA World Cup 2026
+          </div>
+          <h1 class="hero-title">
+            AI-Powered Smart <br>
+            <span class="gradient-text">Stadium Experience</span>
+          </h1>
+          <p class="hero-subtitle">
+            Transforming stadium operations with Generative AI, real-time crowd intelligence, multilingual support, sustainability insights, and secure decision systems.
+          </p>
+          <div class="hero-actions">
+            <a href="ai-assistant.html" class="btn btn-primary btn-lg">Try Live Demo</a>
+            <a href="#ai-demo" class="btn btn-secondary btn-lg">Watch AI in Action</a>
+          </div>
+          
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-value">67,500+</span>
+              <span class="stat-label">Live Fans</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">99.8%</span>
+              <span class="stat-label">Safety Rating</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">&lt; 1.2s</span>
+              <span class="stat-label">AI Latency</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hero-visual reveal" style="transition-delay: 0.2s;">
+          <div class="hero-3d-card" id="heroCard3d">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <span style="font-family: var(--font-ui); font-size: 0.8rem; color: var(--fifa-cyan); font-weight: 700;">LIVE twin TELEMETRY</span>
+              <span class="pulse-dot" style="background: var(--emerald); width: 8px; height: 8px;"></span>
+            </div>
+            <!-- Beautiful animated abstract 3D Globe representation -->
+            <div style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; position: relative;">
+              <svg width="180" height="180" viewBox="0 0 100 100" style="animation: rotate 20s linear infinite;">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(0, 212, 255, 0.15)" stroke-width="1"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="rgba(0, 102, 255, 0.2)" stroke-width="1.5" stroke-dasharray="10, 5"/>
+                <path d="M 15 50 Q 50 15 85 50" fill="none" stroke="var(--fifa-cyan)" stroke-width="1" opacity="0.7"/>
+                <path d="M 15 50 Q 50 85 85 50" fill="none" stroke="var(--fifa-cyan)" stroke-width="1" opacity="0.7"/>
+                <path d="M 50 15 Q 15 50 50 85" fill="none" stroke="var(--primary)" stroke-width="1" opacity="0.7"/>
+                <path d="M 50 15 Q 85 50 50 85" fill="none" stroke="var(--primary)" stroke-width="1" opacity="0.7"/>
+                <circle cx="50" cy="15" r="3" fill="var(--emerald)"/>
+                <circle cx="85" cy="50" r="3" fill="var(--fifa-cyan)"/>
+                <circle cx="15" cy="50" r="3" fill="var(--primary)"/>
+                <circle cx="50" cy="85" r="3" fill="var(--coral-red)"/>
+              </svg>
+              <div style="position: absolute; text-align: center;">
+                <div style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; text-shadow: 0 0 10px rgba(0,212,255,0.4)">METLIFE</div>
+                <div style="font-size: 0.65rem; color: rgba(255,255,255,0.5); letter-spacing: 0.15em;">FIFA VENUE 01</div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+              <div class="glass-card" style="padding: 10px 14px; display: flex; justify-content: space-between; border-radius: 8px;">
+                <span style="font-size: 0.8rem; color: rgba(255,255,255,0.6)">AI Crowd Status</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--emerald)">OPTIMAL</span>
+              </div>
+              <div class="glass-card" style="padding: 10px 14px; display: flex; justify-content: space-between; border-radius: 8px;">
+                <span style="font-size: 0.8rem; color: rgba(255,255,255,0.6)">Emergency Protocols</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--fifa-cyan)">STANDBY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FEATURES SECTION
+       ========================================== -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">🧠 NEURAL OPERATIONS SYSTEM</span>
+        <h2 class="section-title">GenAI-Enabled Capabilities</h2>
+        <p class="section-subtitle" style="margin: 0 auto 50px;">
+          Seamless coordination across fans, venue hosts, security agencies and emergency dispatch.
+        </p>
+      </div>
+      
+      <div class="grid-4 reveal">
+        <!-- Feature 1 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">🗣️</div>
+          <h3 class="feature-card-title">AI Stadium Assistant</h3>
+          <p class="feature-card-desc">Voice-activated multilingual chat supporting 100+ languages. Fully context-aware of seats, stadium gates, matches and itineraries.</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">🗺️</div>
+          <h3 class="feature-card-title">Smart Navigation</h3>
+          <p class="feature-card-desc">Precise indoor seat guidance, custom parking routes, food stall queue estimators, and optimized accessible paths.</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="glass-card feature-card emerald-card">
+          <div class="feature-icon-wrapper">📊</div>
+          <h3 class="feature-card-title">Crowd Intelligence</h3>
+          <p class="feature-card-desc">Real-time heatmaps, live density prediction models, and dynamic alerts to proactively prevent perimeter congestion.</p>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="glass-card feature-card coral-card">
+          <div class="feature-icon-wrapper">🚨</div>
+          <h3 class="feature-card-title">Emergency AI</h3>
+          <p class="feature-card-desc">Instant dynamic evacuation routing, voice guide assist, medical dispatch dispatching, and rapid hazard notifications.</p>
+        </div>
+      </div>
+      
+      <div class="grid-4 reveal" style="margin-top: 30px;">
+        <!-- Feature 5 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">♿</div>
+          <h3 class="feature-card-title">Accessibility AI</h3>
+          <p class="feature-card-desc">Wheelchair-friendly path routing, sign language model assist, auditory walk narration, and high contrast options.</p>
+        </div>
+        
+        <!-- Feature 6 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">🚌</div>
+          <h3 class="feature-card-title">Transportation AI</h3>
+          <p class="feature-card-desc">Real-time parking spaces allocation, public transit flow matching, traffic alerts and custom ride-sharing points.</p>
+        </div>
+        
+        <!-- Feature 7 -->
+        <div class="glass-card feature-card emerald-card">
+          <div class="feature-icon-wrapper">🌱</div>
+          <h3 class="feature-card-title">Sustainability AI</h3>
+          <p class="feature-card-desc">Water monitoring metrics, green transport path rewards, energy optimization logs and solid waste classification.</p>
+        </div>
+        
+        <!-- Feature 8 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">👥</div>
+          <h3 class="feature-card-title">Volunteer Task Allocation</h3>
+          <p class="feature-card-desc">AI-powered scheduling, location-based duty assignment, immediate translation broadcast and organizer reports.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       INTERACTIVE AI DEMO
+       ========================================== -->
+  <section class="section" id="ai-demo" style="background: rgba(255,255,255,0.01); border-top: 1px solid var(--border-glass);">
+    <div class="container">
+      <div class="grid-2" style="align-items: center;">
+        <div class="reveal">
+          <span class="section-label">⚡ PLAYGROUND</span>
+          <h2 class="section-title">Interact with NexusIQ AI</h2>
+          <p class="section-subtitle">
+            Test the live chatbot companion. Prompt the AI for navigation, gates, food stalls or accessibility options. Works with mock replies instantly or your custom Gemini API key.
+          </p>
+          
+          <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 15px;">
+            <div class="form-group" style="max-width: 400px;">
+              <label class="form-label" for="apiKeyInput">Google Gemini API Key (Optional)</label>
+              <input type="password" id="apiKeyInput" class="form-input" placeholder="AIzaSy..." style="background: rgba(0,0,0,0.3);">
+            </div>
+            <div class="chips-container" id="suggestedChips">
+              <button class="chip-btn" data-query="Guide me to Gate B.">Guide to Gate B</button>
+              <button class="chip-btn" data-query="Find nearest accessible restroom.">Wheelchair Restrooms</button>
+              <button class="chip-btn" data-query="What food stalls are near section 12?">Food Stalls Section 12</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="reveal">
+          <div class="glass-panel demo-chat-container">
+            <div class="demo-chat-header">
+              <div class="demo-chat-botinfo">
+                <div class="bot-avatar">🤖</div>
+                <div>
+                  <div class="bot-title">NexusIQ Assistant</div>
+                  <div class="bot-status" id="chatStatus">● Active · Gemini 2.0</div>
+                </div>
+              </div>
+              <select id="langSelect" class="form-select" style="padding: 4px 10px; font-size: 0.75rem; border-radius: var(--radius-sm);">
+                <option value="en">🇺🇸 EN</option>
+                <option value="ar">🇸🇦 AR</option>
+                <option value="es">🇪🇸 ES</option>
+                <option value="fr">🇫🇷 FR</option>
+                <option value="pt">🇵🇹 PT</option>
+                <option value="hi">🇮🇳 HI</option>
+              </select>
+            </div>
+            
+            <div class="demo-chat-messages" id="demoChatMessages">
+              <div class="chat-bubble bot">
+                Hi, I am your smart venue guide! Ask me things like "Where is Gate B?" or "Find nearest restroom".
+              </div>
+            </div>
+            
+            <div class="demo-chat-input-area">
+              <input type="text" id="demoChatInput" class="demo-chat-input" placeholder="Type a message or click suggestion chips...">
+              <button class="btn btn-primary" id="demoChatSend" style="padding: 10px 20px; border-radius: var(--radius-full);">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SYSTEM ARCHITECTURE SECTION
+       ========================================== -->
+  <section class="section" id="architecture" style="border-top: 1px solid var(--border-glass);">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">📐 SYSTEM DESIGN</span>
+        <h2 class="section-title">Unified Architecture</h2>
+        <p class="section-subtitle" style="margin: 0 auto 40px;">
+          Scalable pipeline designed for zero bottleneck, low-latency AI responses, and absolute high security.
+        </p>
+      </div>
+      
+      <div class="arch-diagram-wrapper reveal">
+        <!-- Gorgeous animated SVG diagram -->
+        <svg viewBox="0 0 800 200" width="100%" height="auto">
+          <!-- Definitions for glowing filters and gradients -->
+          <defs>
+            <linearGradient id="cyan-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00D4FF" />
+              <stop offset="100%" stop-color="#0066FF" />
+            </linearGradient>
+            <filter id="glow-effect" x="-20%" y="-20%" width="140%" height="140%">
+              <drop-shadow dx="0" dy="0" stdDeviation="5" flood-color="#00D4FF" flood-opacity="0.5"/>
+            </filter>
+          </defs>
+          
+          <!-- Nodes -->
+          <!-- User / Clients -->
+          <g class="arch-node" transform="translate(40, 60)">
+            <rect width="90" height="50" rx="10" fill="var(--bg-deep)" stroke="var(--fifa-cyan)" stroke-width="1.5"/>
+            <text x="45" y="30" fill="#FFF" font-family="var(--font-heading)" font-size="11" font-weight="700" text-anchor="middle">USER / FANS</text>
+          </g>
+          
+          <!-- Next.js Frontend -->
+          <g class="arch-node" transform="translate(180, 60)">
+            <rect width="90" height="50" rx="10" fill="var(--bg-deep)" stroke="var(--primary)" stroke-width="1.5"/>
+            <text x="45" y="30" fill="#FFF" font-family="var(--font-heading)" font-size="11" font-weight="700" text-anchor="middle">FRONTEND</text>
+          </g>
+          
+          <!-- Gateway & Security -->
+          <g class="arch-node" transform="translate(320, 60)">
+            <rect width="90" height="50" rx="10" fill="var(--bg-deep)" stroke="var(--fifa-cyan)" stroke-width="1.5" filter="url(#glow-effect)"/>
+            <text x="45" y="30" fill="#FFF" font-family="var(--font-heading)" font-size="11" font-weight="700" text-anchor="middle">API GATEWAY</text>
+          </g>
+          
+          <!-- AI Engine / Gemini -->
+          <g class="arch-node" transform="translate(460, 20)">
+            <rect width="100" height="50" rx="10" fill="var(--bg-deep)" stroke="var(--emerald)" stroke-width="1.5"/>
+            <text x="50" y="30" fill="#FFF" font-family="var(--font-heading)" font-size="11" font-weight="700" text-anchor="middle">GEMINI ENGINE</text>
+          </g>
+          
+          <!-- Database layers -->
+          <g class="arch-node" transform="translate(460, 110)">
+            <rect width="100" height="50" rx="10" fill="var(--bg-deep)" stroke="var(--fifa-cyan)" stroke-width="1.5"/>
+            <text x="50" y="30" fill="#FFF" font-family="var(--font-heading)" font-size="11" font-weight="700" text-anchor="middle">DB & MAPS API</text>
+          </g>
+          
+          <!-- Operations Dashboard -->
+          <g class="arch-node" transform="translate(640, 60)">
+            <rect width="110" height="50" rx="10" fill="var(--bg-deep)" stroke="var(--primary)" stroke-width="1.5"/>
+            <text x="55" y="30" fill="#FFF" font-family="var(--font-heading)" font-size="11" font-weight="700" text-anchor="middle">COMMAND CRT</text>
+          </g>
+          
+          <!-- Flowing connect lines -->
+          <line x1="130" y1="85" x2="180" y2="85" stroke="var(--fifa-cyan)" stroke-width="1.5" class="arch-flow-line"/>
+          <line x1="270" y1="85" x2="320" y2="85" stroke="var(--primary)" stroke-width="1.5" class="arch-flow-line"/>
+          
+          <path d="M 410 85 L 430 85 L 430 45 L 460 45" fill="none" stroke="var(--fifa-cyan)" stroke-width="1.5" class="arch-flow-line"/>
+          <path d="M 410 85 L 430 85 L 430 135 L 460 135" fill="none" stroke="var(--fifa-cyan)" stroke-width="1.5" class="arch-flow-line"/>
+          
+          <path d="M 560 45 L 590 45 L 590 85 L 640 85" fill="none" stroke="var(--emerald)" stroke-width="1.5" class="arch-flow-line"/>
+          <path d="M 560 135 L 590 135 L 590 85 L 640 85" fill="none" stroke="var(--fifa-cyan)" stroke-width="1.5" class="arch-flow-line"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       TIMELINE / ROADMAP SECTION
+       ========================================== -->
+  <section class="section" id="roadmap" style="border-top: 1px solid var(--border-glass);">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">🗓️ ROADMAP</span>
+        <h2 class="section-title">Deployment Milestones</h2>
+        <p class="section-subtitle" style="margin: 0 auto 40px;">
+          Rigorous pipeline ensuring absolute readiness for match day.
+        </p>
+      </div>
+      
+      <div class="roadmap-container reveal" style="max-width: 800px; margin: 0 auto;">
+        <div class="roadmap-line"></div>
+        
+        <!-- Step 1 -->
+        <div class="roadmap-step">
+          <div class="roadmap-dot">01</div>
+          <div class="roadmap-content glass-card">
+            <h4 style="color: var(--fifa-cyan); font-size: 1.1rem; margin-bottom: 5px;">Phase 1: Research & Planning</h4>
+            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6)">Crowd flow modeling, evacuation scenario specifications, UI design audits, WCAG compatibility mapping.</p>
+          </div>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="roadmap-step">
+          <div class="roadmap-dot">02</div>
+          <div class="roadmap-content glass-card">
+            <h4 style="color: var(--fifa-cyan); font-size: 1.1rem; margin-bottom: 5px;">Phase 2: Twin Integration</h4>
+            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6)">Live IoT dashboard pipelines, SVG heatmap overlays, telemetry parsing models and security headers audit.</p>
+          </div>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="roadmap-step">
+          <div class="roadmap-dot">03</div>
+          <div class="roadmap-content glass-card">
+            <h4 style="color: var(--emerald); font-size: 1.1rem; margin-bottom: 5px;">Phase 3: Gemini 2.0 Integration</h4>
+            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6)">Connecting multilingual voice assistant engine, pre-routing navigation matrices, volunteer allocation models.</p>
+          </div>
+        </div>
+        
+        <!-- Step 4 -->
+        <div class="roadmap-step">
+          <div class="roadmap-dot">04</div>
+          <div class="roadmap-content glass-card">
+            <h4 style="color: var(--fifa-cyan); font-size: 1.1rem; margin-bottom: 5px;">Phase 4: FIFA Ready Deployment</h4>
+            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6)">End-to-end stress testing with 50,000 simulated client requests, security audits, offline PWA configuration verification.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="nav-logo" style="margin-bottom: 15px;">
+            <div class="logo-symbol"></div>
+            Nexus<span>IQ</span>
+          </div>
+          <p class="footer-desc">
+            Bringing elite AI orchestration, safety routing, and immersive multilingual assistance to FIFA World Cup 2026 stadiums.
+          </p>
+        </div>
+        <div class="footer-links-col">
+          <div class="footer-links-title">Features</div>
+          <a href="dashboard.html" class="footer-link">Live Dashboard</a>
+          <a href="ai-assistant.html" class="footer-link">AI Assistant</a>
+          <a href="crowd-intelligence.html" class="footer-link">Crowd Heatmaps</a>
+        </div>
+        <div class="footer-links-col">
+          <div class="footer-links-title">Resources</div>
+          <a href="navigation.html" class="footer-link">Smart Navigation</a>
+          <a href="emergency.html" class="footer-link">Emergency Hub</a>
+          <a href="#" class="footer-link">Documentation</a>
+        </div>
+        <div class="footer-links-col">
+          <div class="footer-links-title">Contact</div>
+          <a href="#" class="footer-link">GitHub Repo</a>
+          <a href="#" class="footer-link">FIFA Tech Committee</a>
+          <a href="#" class="footer-link">Support Center</a>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <span>© 2026 NexusIQ Platform. Prepared for FIFA 2026 Hackathon. All rights reserved.</span>
+        <div class="social-links">
+          <a href="#" class="social-btn" aria-label="Github">🌐</a>
+          <a href="#" class="social-btn" aria-label="Twitter">𝕏</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core Scripts -->
+  <script src="app.js"></script>
+  <script>
+    // ==========================================
+    // HERO NEURAL BACKGROUND CANVAS ANIMATION
+    // ==========================================
+    const canvas = document.getElementById('hero-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      const particleCount = 60;
+      
+      function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.vx = (Math.random() - 0.5) * 0.6;
+          this.vy = (Math.random() - 0.5) * 0.6;
+          this.radius = Math.random() * 2 + 1;
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(0, 212, 255, 0.4)';
+          ctx.fill();
+        }
+      }
+      
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+      
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw connections
+        for (let i = 0; i < particles.length; i++) {
+          particles[i].update();
+          particles[i].draw();
+          
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < 100) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(0, 102, 255, ${0.15 * (1 - dist/100)})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    // ==========================================
+    // MOUSE TRACKING 3D TILT EFFECT
+    // ==========================================
+    const heroCard = document.getElementById('heroCard3d');
+    if (heroCard) {
+      document.addEventListener('mousemove', (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        heroCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      });
+      
+      document.addEventListener('mouseenter', () => {
+        heroCard.style.transition = 'none';
+      });
+      
+      document.addEventListener('mouseleave', () => {
+        heroCard.style.transition = 'all 0.5s ease';
+        heroCard.style.transform = `rotateY(0deg) rotateX(0deg)`;
+      });
+    }
+
+    // ==========================================
+    // INTERACTIVE PLAYGROUND LOGIC
+    // ==========================================
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const langSelect = document.getElementById('langSelect');
+    const demoChatMessages = document.getElementById('demoChatMessages');
+    const demoChatInput = document.getElementById('demoChatInput');
+    const demoChatSend = document.getElementById('demoChatSend');
+    const suggestedChips = document.getElementById('suggestedChips');
+
+    // Update state key on input change
+    if (apiKeyInput) {
+      apiKeyInput.value = AppState.geminiApiKey;
+      apiKeyInput.addEventListener('input', (e) => {
+        updateApiKey(e.target.value.trim());
+      });
+    }
+
+    if (langSelect) {
+      langSelect.addEventListener('change', (e) => {
+        AppState.selectedLanguage = e.target.value;
+      });
+    }
+
+    async function handleDemoSend(text) {
+      const prompt = text || demoChatInput.value.trim();
+      if (!prompt) return;
+      
+      // Append user message
+      appendMessage(prompt, 'user');
+      demoChatInput.value = '';
+      
+      // Add loading thinking indicator
+      const loader = appendMessage('AI is analyzing coordinates & logs...', 'bot');
+      
+      const response = await queryStadiumAI(prompt);
+      
+      // Remove loading indicator & append response
+      loader.remove();
+      appendMessage(response, 'bot');
+    }
+
+    function appendMessage(text, sender) {
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${sender}`;
+      bubble.innerHTML = text.replace(/\n/g, '<br>');
+      demoChatMessages.appendChild(bubble);
+      demoChatMessages.scrollTop = demoChatMessages.scrollHeight;
+      return bubble;
+    }
+
+    if (demoChatSend) {
+      demoChatSend.addEventListener('click', () => handleDemoSend());
+    }
+
+    if (demoChatInput) {
+      demoChatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleDemoSend();
+      });
+    }
+
+    if (suggestedChips) {
+      suggestedChips.addEventListener('click', (e) => {
+        const btn = e.target.closest('.chip-btn');
+        if (btn) {
+          const query = btn.getAttribute('data-query');
+          handleDemoSend(query);
+        }
+      });
+    }
+
+    // Register PWA service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then(reg => {
+          console.log('NexusIQ PWA SW Registered', reg);
+        }).catch(err => {
+          console.warn('NexusIQ PWA SW registration failed', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
